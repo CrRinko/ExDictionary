@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">ExDictionary</string>
+    <string name="menu_add">Add...</string>
+    <string name="text_word">Word</string>
+    <string name="text_paraphrase">Paraphrase</string>
+    <string name="text_example">Example</string>
+    <string name="menu_search">Search...</string>
+    <string name="btn_ok">OK</string>
+    <string name="btn_cancel">Cancel</string>
+    <string name="dialog_add_title">New word</string>
+    <string name="menu_del">Delete</string>
+    <string name="menu_update">Update</string>
+    <string name="text_translation">Translation</string>
+    <string name="text_null">Unknown</string>
+    <string name="text_search">Search</string>
+    <string name="alert_del_confirm">Are you sure to delete?</string>
+    <string name="text_network_error">Error: Operation failed due to network</string>
+</resources>

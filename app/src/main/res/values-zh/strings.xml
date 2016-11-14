@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">单词本实验</string>
+    <string name="menu_add">添加...</string>
+    <string name="text_word">单词</string>
+    <string name="text_paraphrase">含义</string>
+    <string name="text_example">例句</string>
+    <string name="menu_search">查找...</string>
+    <string name="btn_ok">确定</string>
+    <string name="btn_cancel">取消</string>
+    <string name="dialog_add_title">新增单词</string>
+    <string name="menu_del">删除</string>
+    <string name="menu_update">更改</string>
+    <string name="text_translation">翻译</string>
+    <string name="text_null">空</string>
+    <string name="text_search">查找</string>
+    <string name="alert_del_confirm">确定删除单词吗？</string>
+    <string name="text_network_error">错误：网络连接失败</string>
+</resources>
