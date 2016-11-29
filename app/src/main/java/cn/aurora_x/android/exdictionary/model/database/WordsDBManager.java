@@ -20,6 +20,7 @@ public class WordsDBManager {
         helper=new WordsDBHelper(context);
         db=helper.getWritableDatabase();
     }
+
     public List<WordEntity> getAll(){
         ArrayList<WordEntity> words=new ArrayList<WordEntity>();
         Cursor cursor=db.rawQuery("select * from WordsBook",null);
@@ -34,6 +35,12 @@ public class WordsDBManager {
             }
             if(!cursor.isNull(cursor.getColumnIndex("translation"))){
                 wordEntity.setTranslation(cursor.getString(cursor.getColumnIndex("translation")));
+            }
+            if(!cursor.isNull(cursor.getColumnIndex(WordsDBHelper.DATABASE_REVIEWBOOK_COLUMN_CORRECT))){
+                wordEntity.setCorrect(cursor.getInt(cursor.getColumnIndex(WordsDBHelper.DATABASE_REVIEWBOOK_COLUMN_CORRECT)));
+            }
+            if(!cursor.isNull(cursor.getColumnIndex(WordsDBHelper.DATABASE_REVIEWBOOK_COLUMN_TOTAL))){
+                wordEntity.setTotal(cursor.getInt(cursor.getColumnIndex(WordsDBHelper.DATABASE_REVIEWBOOK_COLUMN_TOTAL)));
             }
             words.add(wordEntity);
         }
@@ -57,6 +64,8 @@ public class WordsDBManager {
         }else {
             values.putNull("translation");
         }
+        values.put(WordsDBHelper.DATABASE_REVIEWBOOK_COLUMN_CORRECT,0);
+        values.put(WordsDBHelper.DATABASE_REVIEWBOOK_COLUMN_TOTAL,0);
         db.insert(WordsDBHelper.DATABASE_TABLENAME,null,values);
     }
     public void deleteByName(String wordName){
@@ -64,6 +73,7 @@ public class WordsDBManager {
         String[] whereArgs={wordName};
         db.delete(WordsDBHelper.DATABASE_TABLENAME,whereClause,whereArgs);
     }
+    //未更新correct和total字段
     public void updateByName(String wordName,WordEntity newWord){
         ContentValues values=new ContentValues();
         values.put("word",newWord.getWord());

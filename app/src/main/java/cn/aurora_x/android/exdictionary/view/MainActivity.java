@@ -44,6 +44,10 @@ public class MainActivity extends AppCompatActivity implements WordsListViewFrag
                 break;
             case R.id.item_add:
                 dialog = new AddWordDialog(this);
+                break;
+            case R.id.item_review:
+                goToReviewActivity();
+                break;
         }
         if (dialog != null) {
             dialog.show();
@@ -94,9 +98,15 @@ public class MainActivity extends AppCompatActivity implements WordsListViewFrag
         intent.putExtra(MainAndDetailsActivityContract.KEY_WORD, word);
         startActivity(intent);
     }
-    public void switchDetailsFragment(String word){
-        WordDetailsFragment detailsFragment=WordDetailsFragment.newInstance(word);
-        FragmentManager fragmentManager=getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.fragment_details_land,detailsFragment).commit();
+
+    public void switchDetailsFragment(String word) {
+        WordDetailsFragment detailsFragment = WordDetailsFragment.newInstance(word);
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.fragment_details_land, detailsFragment).commit();
+    }
+
+    public void goToReviewActivity(){
+        Intent intent=new Intent(this,ReviewActivity.class);
+        startActivity(intent);
     }
 }

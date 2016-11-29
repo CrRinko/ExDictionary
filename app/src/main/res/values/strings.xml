@@ -15,4 +15,10 @@
     <string name="text_search">Search</string>
     <string name="alert_del_confirm">Are you sure to delete?</string>
     <string name="text_network_error">Error: Operation failed due to network</string>
+    <string name="menu_review">Review...</string>
+    <string name="title_activity_review">ReviewActivity</string>
+    <string name="text_correct">Correct</string>
+    <string name="text_total">Total</string>
+    <string name="text_accuracy">Accuracy</string>
+    <string name="menu_create_review">Create review</string>
 </resources>

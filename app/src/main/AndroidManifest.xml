@@ -23,7 +23,10 @@
             android:name=".model.database.WordsContentProvider"
             android:authorities="dictionary.android.aurora-x.cn"
             android:enabled="true"
-            android:exported="true"></provider>
+            android:exported="true" />
+
+        <activity android:name=".view.ReviewActivity" />
+        <activity android:name=".view.TestActivity"></activity>
     </application>
 
 </manifest>

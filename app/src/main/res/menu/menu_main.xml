@@ -3,9 +3,12 @@
     <group android:checkableBehavior="none">
         <item
             android:id="@+id/item_search"
-            android:title="@string/menu_search"/>
+            android:title="@string/menu_search" />
         <item
             android:id="@+id/item_add"
             android:title="@string/menu_add" />
+        <item
+            android:id="@+id/item_review"
+            android:title="@string/menu_review" />
     </group>
 </menu>
