@@ -21,4 +21,9 @@
     <string name="text_total">Total</string>
     <string name="text_accuracy">Accuracy</string>
     <string name="menu_create_review">Create review</string>
+    <string name="text_finish_test">Submit</string>
+    <string name="text_cancel">Cancel</string>
+    <string name="text_show_result">Show Result</string>
+    <string name="text_finish">Finish</string>
+    <string name="title_result_dialog">Score report</string>
 </resources>

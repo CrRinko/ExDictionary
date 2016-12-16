@@ -16,90 +16,98 @@ import cn.aurora_x.android.exdictionary.model.bean.WordEntity;
 public class WordsDBManager {
     private WordsDBHelper helper;
     private SQLiteDatabase db;
-    public WordsDBManager(Context context){
-        helper=new WordsDBHelper(context);
-        db=helper.getWritableDatabase();
+
+    public WordsDBManager(Context context) {
+        helper = new WordsDBHelper(context);
+        db = helper.getWritableDatabase();
     }
 
-    public List<WordEntity> getAll(){
-        ArrayList<WordEntity> words=new ArrayList<WordEntity>();
-        Cursor cursor=db.rawQuery("select * from WordsBook",null);
-        while(cursor.moveToNext()){
-            WordEntity wordEntity=new WordEntity();
+    public List<WordEntity> getAll() {
+        ArrayList<WordEntity> words = new ArrayList<WordEntity>();
+        Cursor cursor = db.rawQuery("select * from WordsBook", null);
+        while (cursor.moveToNext()) {
+            WordEntity wordEntity = new WordEntity();
             wordEntity.setWord(cursor.getString(cursor.getColumnIndex("word")));
-            if(!cursor.isNull(cursor.getColumnIndex("paraphrase"))) {
+            if (!cursor.isNull(cursor.getColumnIndex("paraphrase"))) {
                 wordEntity.setParaphrase(cursor.getString(cursor.getColumnIndex("paraphrase")));
             }
-            if(!cursor.isNull(cursor.getColumnIndex("example"))){
+            if (!cursor.isNull(cursor.getColumnIndex("example"))) {
                 wordEntity.setExample(cursor.getString(cursor.getColumnIndex("example")));
             }
-            if(!cursor.isNull(cursor.getColumnIndex("translation"))){
+            if (!cursor.isNull(cursor.getColumnIndex("translation"))) {
                 wordEntity.setTranslation(cursor.getString(cursor.getColumnIndex("translation")));
             }
-            if(!cursor.isNull(cursor.getColumnIndex(WordsDBHelper.DATABASE_REVIEWBOOK_COLUMN_CORRECT))){
+            if (!cursor.isNull(cursor.getColumnIndex(WordsDBHelper.DATABASE_REVIEWBOOK_COLUMN_CORRECT))) {
                 wordEntity.setCorrect(cursor.getInt(cursor.getColumnIndex(WordsDBHelper.DATABASE_REVIEWBOOK_COLUMN_CORRECT)));
             }
-            if(!cursor.isNull(cursor.getColumnIndex(WordsDBHelper.DATABASE_REVIEWBOOK_COLUMN_TOTAL))){
+            if (!cursor.isNull(cursor.getColumnIndex(WordsDBHelper.DATABASE_REVIEWBOOK_COLUMN_TOTAL))) {
                 wordEntity.setTotal(cursor.getInt(cursor.getColumnIndex(WordsDBHelper.DATABASE_REVIEWBOOK_COLUMN_TOTAL)));
             }
             words.add(wordEntity);
         }
-        return  words;
+        return words;
     }
-    public void add(WordEntity wordEntity){
-        ContentValues values=new ContentValues();
-        values.put("word",wordEntity.getWord());
-        if (wordEntity.getParaphrase()!=null){
-            values.put("paraphrase",wordEntity.getParaphrase());
-        }else {
+
+    public void add(WordEntity wordEntity) {
+        ContentValues values = new ContentValues();
+        values.put("word", wordEntity.getWord());
+        if (wordEntity.getParaphrase() != null) {
+            values.put("paraphrase", wordEntity.getParaphrase());
+        } else {
             values.putNull("paraphrase");
         }
-        if(wordEntity.getExample()!=null){
-            values.put("example",wordEntity.getExample());
-        }else{
+        if (wordEntity.getExample() != null) {
+            values.put("example", wordEntity.getExample());
+        } else {
             values.putNull("example");
         }
-        if(wordEntity.getTranslation()!=null){
-            values.put("translation",wordEntity.getTranslation());
-        }else {
+        if (wordEntity.getTranslation() != null) {
+            values.put("translation", wordEntity.getTranslation());
+        } else {
             values.putNull("translation");
         }
-        values.put(WordsDBHelper.DATABASE_REVIEWBOOK_COLUMN_CORRECT,0);
-        values.put(WordsDBHelper.DATABASE_REVIEWBOOK_COLUMN_TOTAL,0);
-        db.insert(WordsDBHelper.DATABASE_TABLENAME,null,values);
+        values.put(WordsDBHelper.DATABASE_REVIEWBOOK_COLUMN_CORRECT, 0);
+        values.put(WordsDBHelper.DATABASE_REVIEWBOOK_COLUMN_TOTAL, 0);
+        db.insert(WordsDBHelper.DATABASE_TABLENAME, null, values);
     }
-    public void deleteByName(String wordName){
-        String whereClause="word=?";
-        String[] whereArgs={wordName};
-        db.delete(WordsDBHelper.DATABASE_TABLENAME,whereClause,whereArgs);
+
+    public void deleteByName(String wordName) {
+        String whereClause = "word=?";
+        String[] whereArgs = {wordName};
+        db.delete(WordsDBHelper.DATABASE_TABLENAME, whereClause, whereArgs);
     }
-    //未更新correct和total字段
-    public void updateByName(String wordName,WordEntity newWord){
-        ContentValues values=new ContentValues();
-        values.put("word",newWord.getWord());
-        if (newWord.getParaphrase()!=null){
-            values.put("paraphrase",newWord.getParaphrase());
-        }else {
+
+    public void updateByName(String wordName, WordEntity newWord) {
+        ContentValues values = new ContentValues();
+        values.put("word", newWord.getWord());
+        if (newWord.getParaphrase() != null) {
+            values.put("paraphrase", newWord.getParaphrase());
+        } else {
             values.putNull("paraphrase");
         }
-        if(newWord.getExample()!=null){
-            values.put("example",newWord.getExample());
-        }else{
+        if (newWord.getExample() != null) {
+            values.put("example", newWord.getExample());
+        } else {
             values.putNull("example");
         }
-        if(newWord.getTranslation()!=null){
-            values.put("translation",newWord.getTranslation());
-        }else {
+        if (newWord.getTranslation() != null) {
+            values.put("translation", newWord.getTranslation());
+        } else {
             values.putNull("translation");
         }
-        String whereClause="word=?";
-        String[] whereArgs={wordName};
-        db.update(WordsDBHelper.DATABASE_TABLENAME,values,whereClause,whereArgs);
+        values.put(WordsDBHelper.DATABASE_REVIEWBOOK_COLUMN_CORRECT, newWord.getCorrect());
+        values.put(WordsDBHelper.DATABASE_REVIEWBOOK_COLUMN_TOTAL, newWord.getTotal());
+        String whereClause = "word=?";
+        String[] whereArgs = {wordName};
+        db.update(WordsDBHelper.DATABASE_TABLENAME, values, whereClause, whereArgs);
     }
-    public WordEntity findByName(String wordName){
-        Cursor cursor=db.query(WordsDBHelper.DATABASE_TABLENAME,
-                new String[]{"word","paraphrase","example","translation"},
-                "word=?",new String[]{wordName},null,null,null);
+
+    public WordEntity findByName(String wordName) {
+        Cursor cursor = db.query(WordsDBHelper.DATABASE_TABLENAME,
+                new String[]{"word", "paraphrase", "example", "translation",
+                        WordsDBHelper.DATABASE_REVIEWBOOK_COLUMN_CORRECT,
+                        WordsDBHelper.DATABASE_REVIEWBOOK_COLUMN_TOTAL},
+                "word=?", new String[]{wordName}, null, null, null);
         if (cursor.moveToNext()) {
             String word = cursor.getString(cursor.getColumnIndex("word"));
             String paraphrase = null;
@@ -114,17 +122,21 @@ public class WordsDBManager {
             if (!cursor.isNull(cursor.getColumnIndex("translation"))) {
                 translation = cursor.getString(cursor.getColumnIndex("translation"));
             }
-            return new WordEntity(word, paraphrase, example, translation);
-        }else {
+            WordEntity wordEntity = new WordEntity(word, paraphrase, example, translation);
+            wordEntity.setCorrect(cursor.getInt(cursor.getColumnIndex(WordsDBHelper.DATABASE_REVIEWBOOK_COLUMN_CORRECT)));
+            wordEntity.setTotal(cursor.getInt(cursor.getColumnIndex(WordsDBHelper.DATABASE_REVIEWBOOK_COLUMN_TOTAL)));
+            return wordEntity;
+        } else {
             return null;
         }
     }
-    public List<WordEntity> findAllByName(String wordName){
-        Cursor cursor=db.query(WordsDBHelper.DATABASE_TABLENAME,
-                new String[]{"word","paraphrase","example","translation"},
-                "word like ?",new String[]{"%"+wordName+"%"},null,null,null);
-        List<WordEntity> entityList=new ArrayList<WordEntity>();
-        while(cursor.moveToNext()) {
+
+    public List<WordEntity> findAllByName(String wordName) {
+        Cursor cursor = db.query(WordsDBHelper.DATABASE_TABLENAME,
+                new String[]{"word", "paraphrase", "example", "translation"},
+                "word like ?", new String[]{"%" + wordName + "%"}, null, null, null);
+        List<WordEntity> entityList = new ArrayList<WordEntity>();
+        while (cursor.moveToNext()) {
             String word = cursor.getString(cursor.getColumnIndex("word"));
             String paraphrase = null;
             String example = null;
@@ -142,10 +154,11 @@ public class WordsDBManager {
         }
         return entityList;
     }
-    public List<String> getWordsList(){
-        ArrayList<String> words=new ArrayList<String>();
-        Cursor cursor=db.rawQuery("select word from "+WordsDBHelper.DATABASE_TABLENAME,null);
-        while (cursor.moveToNext()){
+
+    public List<String> getWordsList() {
+        ArrayList<String> words = new ArrayList<String>();
+        Cursor cursor = db.rawQuery("select word from " + WordsDBHelper.DATABASE_TABLENAME, null);
+        while (cursor.moveToNext()) {
             words.add(cursor.getString(cursor.getColumnIndex("word")));
         }
         return words;

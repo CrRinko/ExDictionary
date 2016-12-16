@@ -27,14 +27,14 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="OK"
+            android:text="@string/btn_ok"
             android:id="@+id/button_review_OK"
             android:layout_weight="1" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="C"
+            android:text="@string/btn_cancel"
             android:id="@+id/button_review_Cancel"
             android:layout_weight="1"/>
     </LinearLayout>

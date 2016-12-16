@@ -87,9 +87,10 @@ public class WordEntity {
                 '}';
     }
 
-    public String getAccuracy() {
-        if (total != 0) {
+    public static String getAccuracy(int correct, int total) {
+        if (total > 0 && correct > 0) {
             String res = new DecimalFormat("#.00").format(((double) correct / total) * 100) + "%";
+            return res;
         }
         return "0.00%";
     }

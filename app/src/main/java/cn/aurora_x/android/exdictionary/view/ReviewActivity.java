@@ -1,5 +1,6 @@
 package cn.aurora_x.android.exdictionary.view;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -53,6 +54,12 @@ public class ReviewActivity extends AppCompatActivity implements ReviewWordFragm
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        wordEntities.clear();
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_review_activity, menu);
@@ -99,5 +106,9 @@ public class ReviewActivity extends AppCompatActivity implements ReviewWordFragm
         } else {
             wordEntities.remove(item);
         }
+    }
+    public void goToTestActivity(){
+        Intent intent=new Intent(this,TestActivity.class);
+        startActivity(intent);
     }
 }

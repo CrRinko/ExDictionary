@@ -20,4 +20,16 @@ public class Review {
     public List<WordEntity> getList(){
         return dbManager.getAll();
     }
+    public void update(String word,boolean check){
+        WordEntity newWord=dbManager.findByName(word);
+        int correct=newWord.getCorrect();
+        int total=newWord.getTotal();
+        if(check){
+            correct++;
+        }
+        total++;
+        newWord.setCorrect(correct);
+        newWord.setTotal(total);
+        dbManager.updateByName(word,newWord);
+    }
 }

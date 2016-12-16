@@ -44,7 +44,7 @@ public class MyReviewWordRecyclerViewAdapter extends RecyclerView.Adapter<MyRevi
         holder.wordView.setText(holder.mItem.getWord());
         holder.countView.setText("正确: "+holder.mItem.getCorrect()+", "
                 +"复习数: "+holder.mItem.getTotal()+", "
-                +"正确率: "+holder.mItem.getAccuracy());
+                +"正确率: "+holder.mItem.getAccuracy(holder.mItem.getCorrect(),holder.mItem.getTotal()));
         if(showCheckBox==false){
             holder.checkBoxView.setVisibility(View.GONE);
         }

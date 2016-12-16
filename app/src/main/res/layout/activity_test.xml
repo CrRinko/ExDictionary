@@ -9,4 +9,11 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="cn.aurora_x.android.exdictionary.view.TestActivity">
 
+    <fragment
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:name="cn.aurora_x.android.exdictionary.view.TestFragment"
+        android:id="@+id/fragment2"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>
